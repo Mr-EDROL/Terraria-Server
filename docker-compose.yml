@@ -1,0 +1,16 @@
+services:
+  terraria-server:
+    image: beardedio/terraria:latest
+    container_name: terraria-server
+    restart: unless-stopped
+    ports:
+      - "${TSHOCK_PORT:-7777}:${TSHOCK_PORT:-7777}"
+    volumes:
+      - ./worlds:/worlds
+      - ./config:/config
+    environment:
+      - TSHOCK_WORLD=/worlds/${TSHOCK_MAP_NAME:-default}.wld
+      - TSHOCK_PASSWORD=${TSHOCK_PASSWORD:-1234}
+      - TSHOCK_MAXPLAYERS=${TSHOCK_MAXPLAYERS:-8}
+      - TSHOCK_PORT=${TSHOCK_PORT:-7777}
+      - TSHOCK_MOTD=${TSHOCK_MOTD:-Добро пожаловать на сервер!}
